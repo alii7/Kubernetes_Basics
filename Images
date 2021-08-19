@@ -43,7 +43,13 @@ metadata:                                                      #
             restartPocliy: Never --------> 5                   #
 
 
+kind: Job → We have defined the kind as Job which will tell kubectl that the yaml file being used is to create a job type pod.
+Name:py → This is the name of the template that we are using and the spec defines the template.
+name: py → we have given a name as py under container spec which helps to identify the Pod which is going to be created out of it.
+Image: python → the image which we are going to pull to create the container which will run inside the pod.
+restartPolicy: Never →This condition of image restart is given as never which means that if the container is killed or if it is false, then it will not restart itself.
 
-
+kubectl create –f py.yaml                 # to create a job
+kubectl describe jobs/py                  # to check the status of a job
 
 

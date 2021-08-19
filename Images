@@ -1,0 +1,22 @@
+Kubernetes (Docker) images are the key building blocks of Containerized Infrastructure.
+Each container in a pod has its Docker image running inside it.
+
+Following is the common configuration structure which will pull image from Docker registry and deploy in to Kubernetes container :
+
+apiVersion: v1                                                            #
+kind: pod                                                                 #
+metadata:                                                                 #
+   name: Tesing_for_Image_pull -----------> 1                             #
+   spec:                                                                  #       CONFIGURATION STRUCTURE
+      containers:                                                         #
+         - name: neo4j-server ------------------------> 2                 #
+         image: <Name of the Docker image>----------> 3                   #
+         imagePullPolicy: Always ------------->4                          #
+         command: ["echo", "SUCCESS"] ------------------->                #
+         
+name: Tesing_for_Image_pull − This name is given to identify and check what is the name of the container that would get created after pulling the images from Docker registry.
+name: neo4j-server − This is the name given to the container that we are trying to create. Like we have given neo4j-server.
+image: <Name of the Docker image> − This is the name of the image which we are trying to pull from the Docker or internal registry of images. We need to define a complete registry path along with the image name that we are trying to pull.
+imagePullPolicy − Always - This image pull policy defines that whenever we run this file to create the container, it will pull the same name again.
+command: [“echo”, “SUCCESS”] − With this, when we create the container and if everything goes fine, it will display a message when we will access the container.
+

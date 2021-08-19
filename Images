@@ -20,3 +20,30 @@ image: <Name of the Docker image> − This is the name of the image which we are
 imagePullPolicy − Always - This image pull policy defines that whenever we run this file to create the container, it will pull the same name again.
 command: [“echo”, “SUCCESS”] − With this, when we create the container and if everything goes fine, it will display a message when we will access the container.
 
+kubectl create –f Tesing_for_Image_pull               # to pull the image and create a container
+kubectl log Tesing_for_Image_pull                     # to check output of success or failure
+
+
+The main function of a job is to create one or more pod and tracks about the success of pods.They ensure that the specified number of pods are completed successfully.
+When a specified number of successful run of pods is completed, then the job is considered complete.
+
+apiVersion: v1                                                 #
+kind: Job ------------------------> 1                          #
+metadata:                                                      #
+   name: py                                                    #
+   spec:                                                       #
+   template:                                                   #
+      metadata                                                 #      CREATING JOB EXAMPLE
+      name: py -------> 2                                      #
+      spec:                                                    #
+         containers:                                           #
+            - name: py ------------------------> 3             #
+            image: python----------> 4                         #
+            command: ["python", "SUCCESS"]                     #
+            restartPocliy: Never --------> 5                   #
+
+
+
+
+
+

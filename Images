@@ -52,4 +52,35 @@ restartPolicy: Never →This condition of image restart is given as never which 
 kubectl create –f py.yaml                 # to create a job
 kubectl describe jobs/py                  # to check the status of a job
 
+Scheduled job in Kubernetes uses Cronetes, which takes Kubernetes job and launches them in Kubernetes cluster.
+
+Scheduling a job will run a pod at a specified point of time.
+A parodic job is created for it which invokes itself automatically.
+
+
+apiVersion: v1                                           #
+kind: Job                                                #
+metadata:                                                #
+   name: py                                              #
+spec:                                                    #
+   schedule: h/30 * * * * ? -------------------> 1       #
+   template:                                             #
+      metadata                                           #
+         name: py                                        #     SCHEDULED JOB EXAMPLE
+      spec:                                              #
+         containers:                                     #
+         - name: py                                      #
+         image: python                                   #
+         args:                                           #
+/bin/sh -------> 2                                       #
+-c                                                       #
+ps –eaf ------------> 3                                  #  
+restartPocliy: OnFailure                                 #
+
+
+schedule: h/30 * * * * ? → To schedule the job to run in every 30 minutes.
+/bin/sh: This will enter in the container with /bin/sh
+ps –eaf → Will run ps -eaf command on the machine and list all the running process inside a container.
+
+This scheduled job concept is useful when we are trying to build and run a set of tasks at a specified point of time and then complete the process.
 

@@ -84,3 +84,8 @@ ps –eaf → Will run ps -eaf command on the machine and list all the running p
 
 This scheduled job concept is useful when we are trying to build and run a set of tasks at a specified point of time and then complete the process.
 
+
+
+
+
+

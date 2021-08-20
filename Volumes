@@ -49,3 +49,56 @@ path: "/tmp/data01" → This definition tells the machine that we are trying to 
 kubectl create –f local-01.yaml                             # to create PV
 kubectl get pv                                              # to check PVs
 kubectl describe pv pv0001                                  # to describe PV
+
+
+kind: PersistentVolumeClaim --------------> 1
+apiVersion: v1
+metadata:
+   name: myclaim-1 --------------------> 2
+spec:
+   accessModes:
+      - ReadWriteOnce ------------------------> 3
+   resources:
+      requests:
+         storage: 3Gi ---------------------> 4
+
+kind: PersistentVolumeClaim → It instructs the underlying infrastructure that we are trying to claim a specified amount of space.
+name: myclaim-1 → Name of the claim that we are trying to create.
+ReadWriteOnce → This specifies the mode of the claim that we are trying to create.
+storage: 3Gi → This will tell kubernetes about the amount of space we are trying to claim.
+
+kubectl create –f myclaim-1                                 # to create PVC
+kubectl get pvc                                             # to get details about PVC
+kubectl describe pvc pv0001                                 # to describe PVC
+
+
+Using PV and PVC with POD
+
+kind: Pod                                                                  #
+apiVersion: v1                                                             #
+metadata:                                                                  #
+   name: mypod                                                             #
+   labels:                                                                 #
+      name: frontendhttp                                                   #
+spec:                                                                      #
+   containers:                                                             #
+   - name: myfrontend                                                      #
+      image: nginx                                                         #      USING PV AND PVC WITH POD EXAMPLE
+      ports:                                                               #
+      - containerPort: 80                                                  #
+         name: "http-server"                                               #
+      volumeMounts: ----------------------------> 1                        #
+      - mountPath: "/usr/share/tomcat/html"                                #
+         name: mypd                                                        #
+   volumes: -----------------------> 2                                     #
+      - name: mypd                                                         #
+         persistentVolumeClaim: ------------------------->3                #
+         claimName: myclaim-1                                              #
+         
+volumeMounts: → This is the path in the container on which the mounting will take place.
+Volume: → This definition defines the volume definition that we are going to claim.
+persistentVolumeClaim: → Under this, we define the volume name which we are going to use in the defined pod.
+
+
+
+

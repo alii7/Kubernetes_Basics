@@ -1,0 +1,40 @@
+Namespace provides an additional qualification to a resource name. 
+This is helpful when multiple teams are using the same cluster and there is a potential of name collision.
+
+Namespaces help pod-to-pod communication using the same namespace.
+Namespaces are virtual clusters that can sit on top of the same physical cluster.
+They provide logical separation between the teams and their environments.
+
+apiVersion: v1            #
+kind: Namespace            #
+metadata                  #     NAMESPACE CREATE EXAMPLE
+   name: elk              #
+
+kubectl create –f namespace.yml                     # to create a namespace
+kubectl get namespace                               # to list all the available namespace
+kubectl get namespace <Namespace name>              # to get a particular namespace whose name is specified in the command
+kubectl describe namespace <Namespace name>         # to describe the complete details about the service 
+kubectl delete namespace <Namespace name>           # to delete a particular namespace present in the cluster
+
+
+apiVersion: v1                                      #
+kind: Service                                       #
+metadata:                                           #
+   name: elasticsearch                              #
+   namespace: elk                                   #
+   labels:                                          #
+      component: elasticsearch                      #
+spec:                                               #
+   type: LoadBalancer                               #
+   selector:                                        #      USING NAMESPACE SAMPLE FILE
+      component: elasticsearch                      #
+   ports:                                           #
+   - name: http                                     #
+      port: 9200                                    #
+      protocol: TCP                                 #
+   - name: transport                                #
+      port: 9300                                    #
+      protocol: TCP                                 #
+
+
+

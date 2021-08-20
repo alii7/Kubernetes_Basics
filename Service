@@ -1,0 +1,26 @@
+A service can be defined as a logical set of pods. 
+It can be defined as an abstraction on the top of the pod which provides a single IP address and DNS name by which pods can be accessed. 
+With Service, it is very easy to manage load balancing configuration. It helps pods to scale very easily.
+
+apiVersion: v1                              #
+kind: Service                               #
+metadata:                                   #
+   name: Tutorial_point_service             #      SERVICE WITHOUT SELECTOR EXAMPLE
+spec:                                       #
+   ports:                                   #
+   - port: 8080                             #
+   targetPort: 31999                        #
+
+
+apiVersion: v1                                                                #
+kind: Service                                                                 #
+metadata:                                                                     #
+   name: Tutorial_point_service                                               #
+spec:                                                                         #     SERVICE WITH SELECTOR EXAMPLE
+   selector:                                                                  #
+      application: "My Application" -------------------> (Selector)           #
+   ports:                                                                     #
+   - port: 8080                                                               #
+   targetPort: 31999                                                          #
+
+

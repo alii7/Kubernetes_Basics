@@ -1,0 +1,51 @@
+A pod is a collection of containers and its storage inside a node of a Kubernetes cluster.
+It is possible to create a pod with multiple containers inside it.
+
+There are two types of Pods :
+Single container pod
+Multi container pod
+
+kubectl run <name of pod> --image=<name of the image from registry>   # to create a single container pod
+kubectl run my_pod_tomcat --image = tomcat:8.0                        # pod create example
+
+This can also be done by creating the yaml file and then running the kubectl create command :
+
+tomcat.yml   :
+
+apiVersion: v1                                #
+kind: Pod                                     #
+metadata:                                     #
+   name: Tomcat                               #
+spec:                                         #
+   containers:                                #     POD CREATE YAML FILE (tomcat.yml)
+   - name: Tomcat                             #
+    image: tomcat: 8.0                        #
+    ports:                                    #
+containerPort: 7500                           #
+   imagePullPolicy: Always                    #
+   
+kubectl create –f tomcat.yml                    # to create pod file
+
+Multi container pods are created using yaml mail with the definition of the containers.
+
+apiVersion: v1                                  #
+kind: Pod                                       #
+metadata:                                       #
+   name: Tomcat                                 #
+spec:                                           #
+   containers:                                  #
+   - name: Tomcat                               #
+    image: tomcat: 8.0                          #       MULTI CONTAINER POD CREATE EXAMPLE
+    ports:                                      #
+containerPort: 7500                             #
+   imagePullPolicy: Always                      #
+   -name: Database                              #
+   Image: mongoDB                               #
+   Ports:                                       #
+containerPort: 7501                             #
+   imagePullPolicy: Always                      #
+
+
+
+
+In the above code, we have created one pod with two containers inside it, one for tomcat and the other for MongoDB.

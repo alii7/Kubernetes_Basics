@@ -1,0 +1,16 @@
+A node is a working machine in Kubernetes cluster which is also known as a minion. 
+They are working units which can be physical, VM, or a cloud instance.
+Each node has all the required configuration required to run a pod on it such as the proxy service and kubelet service along with the Docker.
+
+The key component of Kubernetes to handle multiple nodes is the controller manager.
+To manage nodes, Kubernetes creates an object of kind node which will validate that the object which is created is a valid node.
+
+apiVersion: v1                                  #
+kind: node                                      #
+metadata:                                       #         NODE SERVICE EXAMPLE
+   name: < ip address of the node>              #
+   labels:                                      #
+      name: <lable name>                        #
+      
+      
+  

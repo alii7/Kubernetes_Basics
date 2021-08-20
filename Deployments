@@ -38,6 +38,12 @@ spec:                                                               #
                
 In the above code, the only thing which is different from the replica set is we have defined the kind as deployment.
 
+kubectl create –f Deployment.yaml -–record                      # to create deployment
+kubectl get deployments                                         # to fetch deployments
+kubectl rollout status deployment/Deployment                    # to check the status of deployment
+kubectl set image deployment/Deployment tomcat=tomcat:6.0       # to update the deployment
+kubectl rollout undo deployment/Deployment –to-revision=2       # to roll back to previous deployment
+
 
 
 

@@ -49,8 +49,49 @@ spec:                                                                #
       port: 80                                                       #
       targetPort: 31999                                              #
       -name: https                                                   #
-      Protocol: TCP                                                  #
-      Port: 443                                                      #
+      protocol: TCP                                                  #
+      port: 443                                                      #
       targetPort: 31998                                              #
 
+
+Types of Services :
+
+ClusterIP − This helps in restricting the service within the cluster. It exposes the service within the defined Kubernetes cluster.
+
+spec:
+   type: NodePort
+   ports:
+   - port: 8080
+      nodePort: 31999
+      name: NodeportService
+
+NodePort − It will expose the service on a static port on the deployed node.
+A ClusterIP service, to which NodePort service will route, is automatically created.
+The service can be accessed from outside the cluster using the NodeIP:nodePort.
+
+spec:
+   ports:
+   - port: 8080
+      nodePort: 31999
+      name: NodeportService
+      clusterIP: 10.20.30.40
+      
+Load Balancer − It uses cloud providers’ load balancer. NodePort and ClusterIP services are created automatically to which the external load balancer will route.
+
+apiVersion: v1
+kind: Service
+metadata:
+   name: appname
+   labels:
+      k8s-app: appname
+spec:
+   type: NodePort
+   ports:
+   - port: 8080
+      nodePort: 31999
+      name: omninginx
+   selector:
+      k8s-app: appname
+      component: nginx
+      env: env_name
 

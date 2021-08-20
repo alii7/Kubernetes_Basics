@@ -44,3 +44,8 @@ capacity: → This spec will define the capacity of PV that we are trying to cre
 storage: 10Gi → This tells the underlying infrastructure that we are trying to claim 10Gi space on the defined path.
 ReadWriteOnce → This tells the access rights of the volume that we are creating.
 path: "/tmp/data01" → This definition tells the machine that we are trying to create volume under this path on the underlying infrastructure.
+
+
+kubectl create –f local-01.yaml                             # to create PV
+kubectl get pv                                              # to check PVs
+kubectl describe pv pv0001                                  # to describe PV
